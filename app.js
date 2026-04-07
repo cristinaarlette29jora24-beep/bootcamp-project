@@ -22,10 +22,11 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// 📝 Renderizar Tareas
+// 📝 Renderizar Tareas (ARREGLADO para mostrar prioridad)
 function renderTasks() {
     taskList.innerHTML = '';
     
+    // Filtrar tareas según el botón seleccionado
     const filtered = tasks.filter(t => {
         if (currentFilter === 'pending') return !t.completed;
         if (currentFilter === 'completed') return t.completed;
@@ -34,17 +35,29 @@ function renderTasks() {
 
     filtered.forEach((task, index) => {
         const li = document.createElement('li');
+        
+        // Aplicamos la clase de prioridad (ej: priority-high)
         li.className = `task-item priority-${task.priority} ${task.completed ? 'completed' : ''}`;
+        
         li.innerHTML = `
             <div style="display:flex; align-items:center; gap:10px;">
                 <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${index})">
                 <span>${task.title}</span>
             </div>
-            <button onclick="deleteTask(${index})" style="background:none; border:none; cursor:pointer;">🗑️</button>
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span class="priority-label">${getPriorityText(task.priority)}</span>
+                <button onclick="deleteTask(${index})" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">🗑️</button>
+            </div>
         `;
         taskList.appendChild(li);
     });
     updateStats();
+}
+
+// Función auxiliar para el texto de prioridad
+function getPriorityText(p) {
+    const texts = { 'high': 'URGENTE', 'medium': 'MEDIA', 'low': 'BAJA' };
+    return texts[p] || 'BAJA';
 }
 
 // ➕ Añadir Tarea
@@ -59,12 +72,30 @@ taskForm.addEventListener('submit', (e) => {
 });
 
 function toggleTask(index) {
-    tasks[index].completed = !tasks[index].completed;
+    // Ajuste para que el toggle funcione bien con los filtros
+    const filtered = tasks.filter(t => {
+        if (currentFilter === 'pending') return !t.completed;
+        if (currentFilter === 'completed') return t.completed;
+        return true;
+    });
+    
+    // Buscamos la tarea real en el array original para marcarla
+    const taskTitle = filtered[index].title;
+    const realIndex = tasks.findIndex(t => t.title === taskTitle);
+    
+    tasks[realIndex].completed = !tasks[realIndex].completed;
     save();
 }
 
 function deleteTask(index) {
-    tasks.splice(index, 1);
+    const filtered = tasks.filter(t => {
+        if (currentFilter === 'pending') return !t.completed;
+        if (currentFilter === 'completed') return t.completed;
+        return true;
+    });
+    
+    const taskTitle = filtered[index].title;
+    tasks = tasks.filter(t => t.title !== taskTitle);
     save();
 }
 
@@ -75,7 +106,9 @@ function updateStats() {
 
     document.getElementById('total-tasks').innerText = total;
     document.getElementById('completed-tasks').innerText = completed;
-    document.getElementById('progress-bar').style.width = percent + '%';
+    
+    const progressBar = document.getElementById('progress-bar');
+    if(progressBar) progressBar.style.width = percent + '%';
 }
 
 function save() {
