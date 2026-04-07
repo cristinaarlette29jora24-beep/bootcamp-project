@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow | Gestión Eficiente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <header>
+            <h1>TaskFlow<span>.</span></h1>
+            <p>Organiza tu día con un clic</p>
+        </header>
+
+        <main class="main-content">
+            <section class="input-card">
+                <form id="task-form">
+                    <div class="input-group">
+                        <input type="text" id="task-input" placeholder="¿Cuál es el siguiente reto?" required>
+                        <button type="submit" id="add-btn">Añadir Tarea</button>
+                    </div>
+                </form>
+            </section>
+
+            <div class="dashboard">
+                <section class="tasks-container">
+                    <ul id="task-list">
+                        </ul>
+                </section>
+
+                <aside class="stats-panel">
+                    <h3>Tu Progreso</h3>
+                    <div class="stat-item">
+                        <span>Total:</span>
+                        <strong id="total-tasks">0</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Completadas:</span>
+                        <strong id="completed-tasks">0</strong>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

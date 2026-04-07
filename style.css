@@ -1,0 +1,131 @@
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --success: #10b981;
+    --danger: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.app-wrapper {
+    width: 100%;
+    max-width: 800px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+header h1 span { color: var(--text-main); }
+
+/* Card de entrada */
+.input-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus { border-color: var(--primary); }
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover { background: var(--primary-hover); }
+
+/* Dashboard Layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 20px;
+}
+
+/* Lista de Tareas */
+.tasks-container {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 10px;
+    min-height: 300px;
+}
+
+ul { list-style: none; }
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.task-item.completed span {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+/* Estadísticas */
+.stats-panel {
+    background: var(--primary);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    height: fit-content;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .dashboard { grid-template-columns: 1fr; }
+}
