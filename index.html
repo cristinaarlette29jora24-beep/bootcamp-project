@@ -3,41 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow | Gestión Eficiente</title>
+    <title>TaskFlow Pro | Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="light-mode">
     <div class="app-wrapper">
+        <nav class="top-nav">
+            <button id="theme-toggle">🌙 Modo Oscuro</button>
+        </nav>
+
         <header>
             <h1>TaskFlow<span>.</span></h1>
-            <p>Organiza tu día con un clic</p>
+            <p>Tu centro de productividad personal</p>
         </header>
 
         <main class="main-content">
             <section class="input-card">
                 <form id="task-form">
                     <div class="input-group">
-                        <input type="text" id="task-input" placeholder="¿Cuál es el siguiente reto?" required>
-                        <button type="submit" id="add-btn">Añadir Tarea</button>
+                        <input type="text" id="task-input" placeholder="¿Qué tienes en mente?" required>
+                        <select id="task-priority">
+                            <option value="low">Baja</option>
+                            <option value="medium">Media</option>
+                            <option value="high">Urgente 🔥</option>
+                        </select>
+                        <button type="submit" id="add-btn">Añadir</button>
                     </div>
                 </form>
             </section>
 
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="pending">Pendientes</button>
+                <button class="filter-btn" data-filter="completed">Completadas</button>
+            </div>
+
             <div class="dashboard">
                 <section class="tasks-container">
-                    <ul id="task-list">
-                        </ul>
+                    <ul id="task-list"></ul>
                 </section>
 
                 <aside class="stats-panel">
                     <h3>Tu Progreso</h3>
-                    <div class="stat-item">
-                        <span>Total:</span>
-                        <strong id="total-tasks">0</strong>
+                    <div class="progress-container">
+                        <div id="progress-bar"></div>
                     </div>
                     <div class="stat-item">
-                        <span>Completadas:</span>
-                        <strong id="completed-tasks">0</strong>
+                        <span>Total:</span> <strong id="total-tasks">0</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Completadas:</span> <strong id="completed-tasks">0</strong>
                     </div>
                 </aside>
             </div>
