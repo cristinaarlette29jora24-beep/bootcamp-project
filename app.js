@@ -118,3 +118,19 @@ function save() {
 
 // Carga inicial
 renderTasks();
+
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('input', () => {
+    const term = searchInput.value.toLowerCase();
+    const tasks = document.querySelectorAll('.task-item'); // Asegúrate de que tus tareas tengan la clase 'task-item'
+
+    tasks.forEach(task => {
+        const taskText = task.querySelector('span').textContent.toLowerCase();
+        if (taskText.includes(term)) {
+            task.style.display = 'flex';
+        } else {
+            task.style.display = 'none';
+        }
+    });
+});
