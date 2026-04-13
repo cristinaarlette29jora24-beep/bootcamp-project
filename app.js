@@ -134,3 +134,16 @@ searchInput.addEventListener('input', () => {
         }
     });
 });
+// Función para editar tareas al hacer doble clic
+function habilitarEdicion(elementoTarea, tareaId) {
+    elementoTarea.addEventListener('dblclick', () => {
+        const nombreActual = elementoTarea.textContent;
+        const nuevoNombre = prompt("Edita tu tarea:", nombreActual);
+        
+        if (nuevoNombre && nuevoNombre.trim() !== "") {
+            elementoTarea.textContent = nuevoNombre.trim();
+            // Llama aquí a tu función de guardar en LocalStorage
+            saveTasks(); 
+        }
+    });
+}
