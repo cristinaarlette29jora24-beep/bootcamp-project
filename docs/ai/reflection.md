@@ -1,9 +1,5 @@
-## Reflexión 
-# 1. Impacto en el desarrollo
-El uso de IA en el flujo de trabajo permite desplazar el enfoque desde la escritura manual de sintaxis hacia la supervisión lógica. La automatización de tareas repetitivas agiliza la implementación de funciones de persistencia y filtrado, facilitando una visión más global de la arquitectura del software.
+# Reflexión Final
 
-# 2. Gestión de herramientas y desafíos
-El control de la interfaz de edición y la gestión de las vistas de comparación (diff) representan los mayores retos técnicos. La integración de sugerencias requiere una revisión constante para evitar errores de anidamiento y asegurar la integridad del código. La experiencia demuestra que la tecnología exige supervisión para mantener un código limpio y funcional.
+La IA ha sido el multiplicador de productividad más importante en este proyecto, especialmente en la generación de CSS y la depuración de errores lógicos. Sin embargo, se detectaron fallos cuando la IA intentaba inventar funciones de librerías que no estaban en el proyecto. 
 
-# 3. El rol técnico ante la IA
-La IA funciona como un multiplicador de productividad, pero no sustituye el criterio técnico. La labor de administración de sistemas sigue siendo fundamental para garantizar la seguridad, optimizar el rendimiento y resolver conflictos de lógica. El desarrollo actual se define como una colaboración entre la capacidad de generación automatizada y la validación técnica humana.
+Depender totalmente de la IA es un riesgo para la seguridad; por ello, siempre se realiza una validación manual. Se prefiere programar sin asistencia la lógica central de la aplicación para mantener el control total sobre el flujo de los datos.

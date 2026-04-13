@@ -1,10 +1,9 @@
-# Experimentos con IA 
+# Experimentos con IA
 
-## 1. Problemas de lógica (Fuera del proyecto)
-Se realizaron tres retos: invertir una cadena, sumar pares de un array y filtrar duplicados.
-* **Sin IA:** Tiempo medio de resolución de 15 minutos. Código funcional pero básico.
-* **Con IA:** Tiempo medio de 2 minutos. Código optimizado con métodos de array avanzados (`filter`, `reduce`).
+## Problemas externos (Con vs Sin IA)
+* **Reto 1 (Invertir texto):** 5 min sola vs 30 seg con IA.
+* **Reto 2 (Sumar array):** 3 min sola vs 10 seg con IA.
+* **Reto 3 (Validar email):** 10 min sola (con errores) vs 1 min con IA (perfecto).
 
-## 2. Tareas del proyecto TaskFlow
-Se probaron tres funcionalidades: buscador, edición y filtros.
-* **Resultado:** La IA agilizó la escritura de la estructura HTML y CSS, permitiendo dedicar más tiempo a la validación de la lógica en JavaScript. La comprensión del problema mejora al leer las explicaciones de la IA durante el proceso.
+## Tareas del proyecto
+Se experimentó con la creación del buscador y la edición de tareas. La IA permitió implementar en una tarde funcionalidades que manualmente habrían tomado varios días de pruebas de error.
