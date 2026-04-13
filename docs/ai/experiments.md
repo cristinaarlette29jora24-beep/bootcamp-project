@@ -1,18 +1,10 @@
-## Experimentos con IA
-# 1. Mejora de funciones (Refactorización)
-Objetivo: Optimizar la función de estadísticas y el sistema de guardado.
+# Experimentos con IA 
 
-Resultado: La IA propuso usar bloques try-catch para evitar errores y simplificó los cálculos matemáticos. El código ahora es más corto y robusto que la versión inicial.
+## 1. Problemas de lógica (Fuera del proyecto)
+Se realizaron tres retos: invertir una cadena, sumar pares de un array y filtrar duplicados.
+* **Sin IA:** Tiempo medio de resolución de 15 minutos. Código funcional pero básico.
+* **Con IA:** Tiempo medio de 2 minutos. Código optimizado con métodos de array avanzados (`filter`, `reduce`).
 
-# 2. Comparativa entre modelos
-Prueba: Se realizaron las mismas preguntas a modelos como Claude y ChatGPT.
-
-Resultado: Se observó que un modelo es más directo para corregir errores de escritura, mientras que el otro ofrece explicaciones más detalladas sobre buenas prácticas de programación.
-
-# 3. Resolución de conflictos en el editor
-Incidencia: Durante la aplicación de cambios, aparecieron bloques de código duplicados y colores de comparación (rojo y verde).
-
-Solución: Se experimentó con los comandos de "Aceptar" y "Rechazar". Se concluyó que es más efectivo aceptar los cambios bloque a bloque que intentar corregir todo el archivo a la vez.
-
-# 4. Conclusión de las pruebas
-El uso de la IA reduce el tiempo dedicado a buscar errores tipográficos, pero requiere una revisión manual constante para asegurar que las piezas de código encajen correctamente sin romper funciones anteriores.
+## 2. Tareas del proyecto TaskFlow
+Se probaron tres funcionalidades: buscador, edición y filtros.
+* **Resultado:** La IA agilizó la escritura de la estructura HTML y CSS, permitiendo dedicar más tiempo a la validación de la lógica en JavaScript. La comprensión del problema mejora al leer las explicaciones de la IA durante el proceso.
