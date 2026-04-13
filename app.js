@@ -107,13 +107,18 @@ function updateStats() {
     document.getElementById('total-tasks').innerText = total;
     document.getElementById('completed-tasks').innerText = completed;
     
+
     const progressBar = document.getElementById('progress-bar');
     if(progressBar) progressBar.style.width = percent + '%';
 }
 
 function save() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    renderTasks();
+    try {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        renderTasks();
+    } catch (e) {
+        console.error("Error al guardar:", e);
+    }
 }
 
 // Carga inicial
