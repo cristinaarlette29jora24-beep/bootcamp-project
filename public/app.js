@@ -295,7 +295,9 @@ if(searchInput) {
     });
 }*/
 
-// Selección de elementos
+// --- CONFIGURACIÓN Y SELECCIÓN DE ELEMENTOS ---
+const API_URL = '/api/v1/tasks'; // CAMBIO: Ahora apuntamos al endpoint del servidor
+
 const taskInput = document.getElementById('task-input');
 const prioritySelect = document.getElementById('priority-select');
 const addBtn = document.getElementById('add-btn');
@@ -305,15 +307,82 @@ const progressBar = document.getElementById('progress-bar');
 const statsDone = document.getElementById('stats-done');
 const themeToggle = document.getElementById('theme-toggle');
 
-// Estado de la aplicación
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+// CAMBIO: El estado 'tasks' ahora empieza vacío y se llena desde el servidor
+let tasks = [];
 
-// Guardar y Actualizar
-const saveTasks = () => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    renderTasks();
-    updateStats();
+// --- CAPA DE RED (Fase D: Peticiones al Servidor) ---
+
+// CAMBIO: Función nueva para pedir la "verdad" al servidor (GET)
+const fetchTasks = async () => {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error('Error al obtener tareas del servidor');
+        tasks = await response.json();
+        renderTasks(); // Dibujamos lo que diga el servidor
+        updateStats();
+    } catch (error) {
+        console.error("Error de carga:", error);
+    }
 };
+
+// CAMBIO: addTask ahora es asíncrona y envía un POST al backend
+const addTask = async () => {
+    const text = taskInput.value.trim();
+    if (!text) return;
+
+    // CAMBIO: Enviamos el objeto al servidor. Usamos 'title' si tu servidor así lo espera
+    const newTask = { 
+        title: text, 
+        priority: prioritySelect.value, 
+        completed: false 
+    };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newTask)
+        });
+
+        if (response.status === 201) {
+            taskInput.value = '';
+            await fetchTasks(); // CAMBIO: Refrescamos la lista tras confirmar la creación
+        }
+    } catch (error) {
+        console.error("Error al añadir tarea:", error);
+    }
+};
+
+// CAMBIO: toggleTask ahora usa PATCH o PUT para avisar al servidor del cambio
+const toggleTask = async (id) => {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+
+    try {
+        await fetch(`${API_URL}/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completed: !task.completed })
+        });
+        await fetchTasks(); // Sincronizamos
+    } catch (error) {
+        console.error("Error al actualizar tarea:", error);
+    }
+};
+
+// CAMBIO: deleteTask envía una petición DELETE al servidor
+const deleteTask = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        if (response.ok || response.status === 204) {
+            await fetchTasks(); // Sincronizamos
+        }
+    } catch (error) {
+        console.error("Error al eliminar tarea:", error);
+    }
+};
+
+// --- LÓGICA DE INTERFAZ (Se mantiene similar a tu Fase 2) ---
 
 const updateStats = () => {
     const completed = tasks.filter(t => t.completed).length;
@@ -322,14 +391,12 @@ const updateStats = () => {
     statsDone.innerText = completed;
 };
 
-// Renderizado con Filtros y Ordenación
 const renderTasks = () => {
     let sortedTasks = [...tasks];
     const sortBy = sortSelect.value;
 
-    // Lógica de Ordenación
     if (sortBy === 'alpha') {
-        sortedTasks.sort((a, b) => a.text.localeCompare(b.text));
+        sortedTasks.sort((a, b) => (a.title || a.text).localeCompare(b.title || b.text));
     } else if (sortBy === 'priority') {
         const levels = { high: 1, medium: 2, low: 3 };
         sortedTasks.sort((a, b) => levels[a.priority] - levels[b.priority]);
@@ -345,7 +412,7 @@ const renderTasks = () => {
             <div style="display:flex; align-items:center; gap:10px;">
                 <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})">
                 <span class="priority-label">${task.priority.toUpperCase()}</span>
-                <span>${task.text}</span>
+                <span>${task.title || task.text}</span>
             </div>
             <button onclick="deleteTask(${task.id})" style="border:none; background:none; cursor:pointer;">🗑️</button>
         `;
@@ -353,35 +420,15 @@ const renderTasks = () => {
     });
 };
 
-// Acciones
-const addTask = () => {
-    const text = taskInput.value.trim();
-    if (!text) return;
-    tasks.push({ id: Date.now(), text, priority: prioritySelect.value, completed: false });
-    taskInput.value = '';
-    saveTasks();
-};
-
-const toggleTask = (id) => {
-    tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
-    saveTasks();
-};
-
-const deleteTask = (id) => {
-    tasks = tasks.filter(t => t.id !== id);
-    saveTasks();
-};
-
-// Modo Oscuro
+// --- MODO OSCURO (Persistencia en LocalStorage es opcional para UI) ---
 themeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
 
-// Eventos
+// --- EVENTOS ---
 addBtn.addEventListener('click', addTask);
 sortSelect.addEventListener('change', renderTasks);
 taskInput.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
 
-// Inicio
-renderTasks();
-updateStats();
+// CAMBIO: Al arrancar, llamamos al servidor en lugar de usar LocalStorage
+fetchTasks();
