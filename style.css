@@ -16,18 +16,30 @@ body.dark-mode {
     --border: #334155;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', system-ui, sans-serif; 
+}
 
 body {
     background-color: var(--bg);
     color: var(--text);
     transition: all 0.3s ease;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Para que el footer vaya abajo */
+    align-items: center;
     padding: 20px;
+    min-height: 100vh;
 }
 
-.app-wrapper { width: 100%; max-width: 900px; }
+/* 🖥️ Ajuste 2K: Limita el ancho máximo para que no se desparrame */
+.app-wrapper { 
+    width: 100%; 
+    max-width: 1100px; 
+    margin: 0 auto;
+}
 
 /* Navegación y Botón de Tema */
 .top-nav { display: flex; justify-content: flex-end; margin-bottom: 20px; }
@@ -42,9 +54,12 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
 }
 
-header { text-align: center; margin-bottom: 40px; }
+/* 🏷️ Header: Alineado a la izquierda según feedback */
+header { 
+    text-align: left; 
+    margin-bottom: 40px; 
+}
 header h1 { font-size: 3.5rem; color: var(--primary); letter-spacing: -1px; }
-header h1 span { color: var(--text); }
 
 /* Card de Entrada */
 .input-card { 
@@ -54,7 +69,8 @@ header h1 span { color: var(--text); }
     box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); 
     margin-bottom: 30px; 
 }
-.input-group { display: flex; gap: 12px; }
+.input-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
 input, select, #add-btn { 
     padding: 14px; 
     border-radius: 10px; 
@@ -63,7 +79,8 @@ input, select, #add-btn {
     background: var(--card);
     color: var(--text);
 }
-input { flex-grow: 1; font-size: 1rem; }
+input { flex-grow: 1; font-size: 1rem; min-width: 200px; }
+
 #add-btn { 
     background: var(--primary); 
     color: white; 
@@ -75,8 +92,15 @@ input { flex-grow: 1; font-size: 1rem; }
 }
 #add-btn:hover { background: var(--primary-hover); }
 
-/* Filtros */
-.filter-bar { display: flex; gap: 12px; margin-bottom: 30px; justify-content: center; }
+/* Filtros y Ordenación */
+.filter-bar { 
+    display: flex; 
+    gap: 12px; 
+    margin-bottom: 30px; 
+    justify-content: flex-start; 
+    align-items: center;
+    flex-wrap: wrap;
+}
 .filter-btn { 
     background: var(--card); 
     border: 1px solid var(--border); 
@@ -89,8 +113,16 @@ input { flex-grow: 1; font-size: 1rem; }
 }
 .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
+.sort-container {
+    margin-left: auto; /* Empuja la ordenación a la derecha */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 /* Dashboard y Tareas */
-.dashboard { display: grid; grid-template-columns: 1fr 280px; gap: 25px; }
+.dashboard { display: grid; grid-template-columns: 1fr 300px; gap: 25px; }
 
 .task-item { 
     background: var(--card); 
@@ -102,12 +134,12 @@ input { flex-grow: 1; font-size: 1rem; }
     justify-content: space-between;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
     animation: fadeIn 0.4s ease;
-    border-left: 8px solid var(--primary); /* Por defecto */
+    border-left: 8px solid var(--primary);
 }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 🔴 COLORES DE PRIORIDAD (ARREGLADO) */
+/* 🔴 COLORES DE PRIORIDAD */
 .priority-high { border-left-color: #ef4444 !important; }
 .priority-medium { border-left-color: #f59e0b !important; }
 .priority-low { border-left-color: #10b981 !important; }
@@ -119,12 +151,12 @@ input { flex-grow: 1; font-size: 1rem; }
     background: var(--bg);
     border-radius: 6px;
     border: 1px solid var(--border);
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .completed span { text-decoration: line-through; opacity: 0.5; }
 
-/* Estadísticas y Progreso */
+/* Estadísticas */
 .stats-panel { 
     background: var(--card); 
     padding: 25px; 
@@ -144,13 +176,27 @@ input { flex-grow: 1; font-size: 1rem; }
     background: linear-gradient(90deg, #10b981, #34d399); 
     height: 100%; 
     width: 0%; 
-    transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: width 0.6s ease; 
 }
 
 .stat-item { display: flex; justify-content: space-between; margin-top: 10px; font-size: 1.1rem; }
 
+/* 👣 Footer Final (Requisito Tutor) */
+.main-footer {
+    text-align: center;
+    padding: 40px 0;
+    margin-top: auto;
+    width: 100%;
+    color: var(--text);
+    opacity: 0.6;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+}
+
 /* Responsivo */
 @media (max-width: 768px) { 
     .dashboard { grid-template-columns: 1fr; } 
-    header h1 { font-size: 2.5rem; }
+    header h1 { font-size: 2.5rem; text-align: center; }
+    .filter-bar { justify-content: center; }
+    .sort-container { margin-left: 0; width: 100%; justify-content: center; }
 }
