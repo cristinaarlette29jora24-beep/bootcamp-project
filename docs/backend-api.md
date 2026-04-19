@@ -1,14 +1,22 @@
-## mi primer Backend
-Para completar el ejercicio de TaskFlow, he tenido que dejar de pensar solo en lo que se ve en la pantalla y empezar a entender cómo viaja la información por la red. Estos son los conceptos clave que he aplicado:
+# Herramientas del ecosistema backend
 
-1. ¿Por qué usaría Axios en vez de Fetch?
-Aunque ahora mismo me apaño con fetch, sé que en las empresas se usa mucho Axios. Básicamente, me ahorraría trabajo porque convierte los datos a JSON automáticamente y me permite usar "interceptores" (que es como programar reglas automáticas para todas mis peticiones). Además, gestiona los errores de conexión de una forma mucho más limpia.
+## Axios
+Axios es una librería JavaScript para hacer peticiones HTTP desde el navegador o desde Node.js. Es una alternativa a `fetch` con ventajas como la transformación automática de JSON, mejor manejo de errores (lanza errores en respuestas 4xx y 5xx automáticamente) e interceptores para añadir headers a todas las peticiones. Se usa mucho en frontends React y Vue para consumir APIs REST.
 
-2. Postman y Thunder Client: Mis probadores de "puertas"
-He aprendido que no hace falta abrir el navegador para saber si mi servidor funciona. Con estas herramientas puedo llamar a mis rutas (endpoints) directamente. Me han servido para "hacerle perrerías" al servidor: enviar datos mal o borrar cosas que no existen, solo para comprobar que mi código me responde con los errores correctos (como el 400 o el 500) y no se queda colgado.
+## Postman
+Postman es una herramienta visual para probar APIs REST sin necesidad de escribir código. Permite enviar peticiones GET, POST, PATCH, DELETE con headers y body personalizados, guardar colecciones de peticiones organizadas por proyecto y documentar automáticamente los endpoints de una API. Es el estándar de la industria para el desarrollo y prueba de backends.
 
-3. Swagger: El mapa para otros programadores
-Si mañana otra persona tuviera que trabajar en mi proyecto, Swagger le daría una web con el "menú" de mi API. Ahí vería qué rutas tengo, qué datos necesito enviarle y podría probarlo todo sin tener que leerse todo mi código fuente.
+## Sentry
+Sentry es una plataforma de monitorización de errores en tiempo real. Cuando una aplicación en producción lanza un error, Sentry lo captura automáticamente y envía una alerta con el stack trace completo, el usuario afectado y el contexto del error. Es especialmente útil en producción porque los errores que no se reproducen en desarrollo sí aparecen cuando miles de usuarios usan la app. Se integra con Node.js añadiendo unas pocas líneas de configuración.
 
-4. Sentry: El vigilante 24/7
-Como estudiante de ASIR, entiendo que los servidores pueden fallar en cualquier momento. Sentry es como tener una alarma: si mi código da un error mientras un usuario lo está usando, me avisa al instante diciéndome exactamente en qué línea ha fallado. Así puedo arreglarlo antes de que me lleguen las quejas.
+## Swagger
+Swagger (ahora llamado OpenAPI) es un estándar para documentar APIs REST. Permite describir todos los endpoints de una API (rutas, métodos, parámetros, respuestas) en un archivo JSON o YAML que se convierte automáticamente en una página web interactiva donde cualquier desarrollador puede explorar y probar la API sin leer el código fuente. En Node.js se integra con la librería `swagger-ui-express`.
+
+## ¿Por qué se usan estas herramientas juntas?
+
+En un proyecto real el flujo típico es:
+1. Desarrollar el backend con Express
+2. Probar los endpoints con **Postman** durante el desarrollo
+3. Documentar la API con **Swagger** para que otros equipos la consuman
+4. Usar **Axios** en el frontend para consumir la API
+5. Monitorizar errores en producción con **Sentry**
