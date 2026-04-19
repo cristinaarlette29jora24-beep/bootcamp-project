@@ -200,3 +200,13 @@ input { flex-grow: 1; font-size: 1rem; min-width: 200px; }
     .filter-bar { justify-content: center; }
     .sort-container { margin-left: 0; width: 100%; justify-content: center; }
 }
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}

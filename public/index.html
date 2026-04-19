@@ -9,8 +9,9 @@
 </head>
 <body class="light-mode">
     <div class="app-wrapper">
+
         <nav class="top-nav">
-            <button id="theme-toggle">🌙 Modo Oscuro</button>
+            <button id="theme-toggle" aria-label="Activar modo oscuro">🌙 Modo Oscuro</button>
         </nav>
 
         <header>
@@ -19,16 +20,23 @@
         </header>
 
         <main class="main-content">
+
             <section class="input-card">
                 <form id="task-form">
                     <div class="input-group">
+                        <label for="task-input" class="sr-only">Nueva tarea</label>
                         <input type="text" id="task-input" placeholder="¿Qué tienes en mente?" required>
+
+                        <label for="searchInput" class="sr-only">Buscar tareas</label>
                         <input type="text" id="searchInput" placeholder="Buscar tareas...">
-                        <select id="task-priority">
+
+                        <label for="priority-select" class="sr-only">Prioridad</label>
+                        <select id="priority-select">
                             <option value="low">Baja</option>
                             <option value="medium">Media</option>
                             <option value="high">Urgente 🔥</option>
                         </select>
+
                         <button type="submit" id="add-btn">Añadir</button>
                     </div>
                 </form>
@@ -38,34 +46,44 @@
                 <button class="filter-btn active" data-filter="all">Todas</button>
                 <button class="filter-btn" data-filter="pending">Pendientes</button>
                 <button class="filter-btn" data-filter="completed">Completadas</button>
+
+                <div class="sort-container">
+                    <label for="sort-select">Ordenar:</label>
+                    <select id="sort-select">
+                        <option value="newest">Más recientes</option>
+                        <option value="alpha">Alfabético</option>
+                        <option value="priority">Prioridad</option>
+                    </select>
+                </div>
             </div>
 
             <div class="dashboard">
                 <section class="tasks-container">
-                    <ul id="task-list"></ul>
+                    <ul id="task-list" aria-label="Lista de tareas"></ul>
                 </section>
 
-                <aside class="stats-panel">
+                <aside class="stats-panel" aria-label="Panel de estadísticas">
                     <h3>Tu Progreso</h3>
-                    <div class="progress-container">
+                    <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                         <div id="progress-bar"></div>
                     </div>
                     <div class="stat-item">
                         <span>Total:</span> <strong id="total-tasks">0</strong>
                     </div>
                     <div class="stat-item">
-                        <span>Completadas:</span> <strong id="completed-tasks">0</strong>
+                        <span>Completadas:</span> <strong id="stats-done">0</strong>
                     </div>
                 </aside>
             </div>
+
         </main>
+
+        <footer class="main-footer">
+            <p>&copy; 2026 - Trinidad Nepi</p>
+        </footer>
+
     </div>
+
     <script src="./app.js"></script>
-    </div>
-<div>
-    <footer class="main-footer">
-        <p>&copy; 2026 - Trinidad Nepi</p>
-    </footer>
-</div>
 </body>
 </html>
