@@ -1,2 +1,30 @@
+# --- Node ---
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Entorno ---
 .env
+.env.local
+.env.production
+
+# --- Sistema operativo (Mac) ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# --- Sistema operativo (Windows) ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Editor (VS Code) ---
+.vscode/
+*.code-workspace
+
+# --- Build / Compilados ---
+dist/
+build/
